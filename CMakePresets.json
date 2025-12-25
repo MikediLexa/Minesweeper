@@ -2,7 +2,7 @@
   "version": 3,
   "configurePresets": [{
     "name": "default",
-    "binaryDir": "${sourceDir}/build/cmake.run.linux.x86_64.Local",
+    "binaryDir": "${sourceDir}/build",
 	"generator": "Eclipse CDT4 - Ninja"
   }],
   "buildPresets": [{
