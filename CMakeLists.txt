@@ -51,7 +51,7 @@ set(VENDOR_DIR "${PROJECT_SOURCE_DIR}/vendor")
 
 # Add the SDL libraries from our submodules
 add_subdirectory(${VENDOR_DIR}/SDL) 
-#add_subdirectory(${VENDOR_DIR}/SDL_image) 
+add_subdirectory(${VENDOR_DIR}/SDL_image) 
 add_subdirectory(${VENDOR_DIR}/SDL_ttf)
 
 
@@ -63,14 +63,14 @@ target_include_directories(${PROJECT_NAME}
 	PUBLIC 
 		"${PROJECT_BINARY_DIR}"
 	PRIVATE 
-		${CMAKE_SOURCE_DIR}/src
+		${CMAKE_SOURCE_DIR}
 )
 
 # Link to the actual SDL3 library.
 target_link_libraries(
   ${PROJECT_NAME} 
   SDL3::SDL3 
-#  SDL3_::SDL3_image 
+  SDL3_image::SDL3_image 
   SDL3_ttf::SDL3_ttf 
 )
 

@@ -1,13 +1,54 @@
 {
   "version": 3,
-  "configurePresets": [{
-    "name": "default",
-    "binaryDir": "${sourceDir}/build",
-	"generator": "Eclipse CDT4 - Ninja"
-  }],
-  "buildPresets": [{
-    "name": "default",
-    "configurePreset": "default",
-	"jobs":24
-  }]
+  "configurePresets": [
+	
+	{
+	    "name": "default",
+	    "binaryDir": "${sourceDir}/build/cmake.run.linux.x86_64.Local",
+		"generator": "Eclipse CDT4 - Ninja",		"cacheVariables": {
+		        "CMAKE_BUILD_TYPE": "default",
+		        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
+		      }
+	  },
+	
+    {
+      "name": "debug",
+      "displayName": "Debug (Eclipse Ninja)",
+      "binaryDir": "${sourceDir}/build/Debug",
+      "generator": "Eclipse CDT4 - Ninja",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
+      }
+    },
+    {
+      "name": "release",
+      "displayName": "Release (Eclipse Ninja)",
+      "binaryDir": "${sourceDir}/build/Release",
+      "generator": "Eclipse CDT4 - Ninja",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
+      }
+    }
+  ],
+  "buildPresets": [
+	{
+		    "name": "default",
+		    "configurePreset": "default",
+			"jobs":24
+  },
+    {
+      "name": "debug",
+      "configurePreset": "debug",
+      "jobs": 24
+    },
+    {
+      "name": "release",
+      "configurePreset": "release",
+      "jobs": 24
+    }
+  ]
 }
+
+
