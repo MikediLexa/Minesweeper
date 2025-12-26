@@ -5,10 +5,17 @@
  *      Author: mike
  */
 
+#include "Engine/Button.h"
+#include "Engine/Image.h"
+#include "Engine/Rectangle.h"
+#include "Engine/Window.h"
+#include "Globals.h"
+
 #include <iostream>
 #include <ostream>
 
 int main() {
     std::cout << "HI" << std::endl;
+
     return 0;
 }
