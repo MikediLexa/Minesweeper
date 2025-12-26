@@ -19,7 +19,8 @@ class Text {
                             FontSize);
 #ifdef SHOW_DEBUG_HELPERS
         Utils::CheckSDLError("TTF_OpenFont");
-#endif setText(Content);
+#endif
+        SetText(Content);
     }
 
     void SetText(const std::string& Text) {

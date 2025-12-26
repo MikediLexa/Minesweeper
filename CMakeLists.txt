@@ -41,12 +41,12 @@ elseif(UNIX)
   )
 endif()
 
+
 # Specify that we want to build SDL_TTF's dependencies
 set(SDLTTF_VENDORED ON) 
 
 # Set a variable for our vendor directory
 set(VENDOR_DIR "${PROJECT_SOURCE_DIR}/vendor") 
-
 
 # Add the SDL libraries from our submodules
 add_subdirectory(${VENDOR_DIR}/SDL) 
