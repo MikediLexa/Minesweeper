@@ -5,10 +5,6 @@
  *      Author: mike
  */
 
-#include "Engine/Button.h"
-#include "Engine/Image.h"
-#include "Engine/Rectangle.h"
-#include "Engine/Text.h"
 #include "Engine/Window.h"
 #include "Globals.h"
 #include "Minesweeper/UI.h"

@@ -26,6 +26,7 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/$<CONFIGURATION>")
 # This project will output an executable file
 add_executable(${PROJECT_NAME} 
 	main.cpp
+	Minesweeper/Cell.cpp
 )
 
 if(APPLE)
