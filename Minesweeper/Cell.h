@@ -1,33 +1,47 @@
 #pragma once
 #include "Engine/Button.h"
+#include "Engine/Image.h"
 
 #include <SDL3/SDL.h>
+#include <memory>
 
-class MinesweeperCell : public Engine::Button {
+class MinesweeperCell : public Engine::Button
+{
   public:
-    MinesweeperCell(int X, int Y, int W, int G,
-                    int Row, int Col);
+	MinesweeperCell(int X, int Y, int W, int G, int Row, int Col);
 
-    void HandleEvent(const SDL_Event& E) override;
-    void Render(SDL_Surface* Surface) override;
+	void HandleEvent(const SDL_Event& E) override;
+	void Render(SDL_Surface* Surface) override;
 
-    [[nodiscard]]
-    int GetRow() const {
-        return Row;
-    }
+	bool PlaceBomb();
 
-    [[nodiscard]]
-    int GetCol() const {
-        return Col;
-    }
+	[[nodiscard]]
+	bool GetHasBomb() const
+	{
+		return hasBomb;
+	}
+
+	[[nodiscard]]
+	int GetRow() const
+	{
+		return Row;
+	}
+
+	[[nodiscard]]
+	int GetCol() const
+	{
+		return Col;
+	}
 
   protected:
-    void HandleLeftClick() override;
+	void HandleLeftClick() override;
 
   private:
-    void ReportEvent(Uint32 EventType);
-    void ClearCell();
-    bool isCleared{false};
-    int Row;
-    int Col;
+	bool hasBomb{false};
+	void ReportEvent(Uint32 EventType);
+	void ClearCell();
+	bool isCleared{false};
+	int Row;
+	int Col;
+	std::unique_ptr<Engine::Image> BombImage;
 };
