@@ -1,18 +1,49 @@
 #include "Minesweeper/Cell.h"
 
 #include "Engine/Image.h"
+#include "Engine/Text.h"
 #include "Globals.h"
 #include "Minesweeper/Cell.h"
+#include "SDL3/SDL_events.h"
 
 #include <SDL3/SDL.h>
 #include <iostream>
 #include <memory>
+#include <string>
 
 MinesweeperCell::MinesweeperCell(int x, int y, int w, int h, int Row, int Col)
 	: Button{x, y, w, h}, Row{Row}, Col{Col}
 {
 	BombImage = std::make_unique<Engine::Image>(x, y, w, h, Config::BOMB_IMAGE);
+	Text = std::make_unique<Engine::Text>(x, y, w, h,
+										  std::to_string(AdjacentBombs),
+										  Config::TEXT_COLORS[AdjacentBombs]);
 };
+
+void MinesweeperCell::HandleBombPlaced(const SDL_UserEvent& E)
+{
+	const auto* Cell{static_cast<MinesweeperCell*>(E.data1)};
+	if (isAdjacent(Cell)) {
+		AdjacentBombs++;
+		Text->SetText(std::to_string(AdjacentBombs),
+					  Config::TEXT_COLORS[AdjacentBombs]);
+	}
+}
+
+void MinesweeperCell::HandleCellCleared(const SDL_UserEvent& E)
+{
+	const auto* Cell{static_cast<MinesweeperCell*>(E.data1)};
+	if (Cell->GetHasBomb()) return;
+	if (isAdjacent(Cell) && Cell->AdjacentBombs == 0) {
+		ClearCell();
+	}
+}
+
+bool MinesweeperCell::isAdjacent(const MinesweeperCell* Other) const
+{
+	return !(Other == this) && std::abs(GetRow() - Other->GetRow()) <= 1 &&
+		   std::abs(GetCol() - Other->GetCol()) <= 1;
+}
 
 bool MinesweeperCell::PlaceBomb()
 {
@@ -45,11 +76,9 @@ void MinesweeperCell::ReportEvent(Uint32 EventType)
 void MinesweeperCell::HandleEvent(const SDL_Event& E)
 {
 	if (E.type == UserEvents::CELL_CLEARED) {
-		// TODO
-		std::cout << "A Cell Was Cleared\n";
+		HandleCellCleared(E.user);
 	} else if (E.type == UserEvents::BOMB_PLACED) {
-		// TODO
-		std::cout << "A Bomb was Placed\n";
+		HandleBombPlaced(E.user);
 	}
 
 	Button::HandleEvent(E);
@@ -60,6 +89,8 @@ void MinesweeperCell::Render(SDL_Surface* Surface)
 	Button::Render(Surface);
 	if (isCleared && hasBomb) {
 		BombImage->Render(Surface);
+	} else if (isCleared && AdjacentBombs > 0) {
+		Text->Render(Surface);
 	}
 #ifdef SHOW_DEBUG_HELPERS
 	else if (hasBomb) {

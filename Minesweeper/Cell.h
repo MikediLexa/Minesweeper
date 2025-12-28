@@ -1,6 +1,7 @@
 #pragma once
 #include "Engine/Button.h"
 #include "Engine/Image.h"
+#include "Engine/Text.h"
 
 #include <SDL3/SDL.h>
 #include <memory>
@@ -37,11 +38,17 @@ class MinesweeperCell : public Engine::Button
 	void HandleLeftClick() override;
 
   private:
-	bool hasBomb{false};
-	void ReportEvent(Uint32 EventType);
+	void HandleCellCleared(const SDL_UserEvent& E);
+	void HandleBombPlaced(const SDL_UserEvent& E);
+	bool isAdjacent(const MinesweeperCell* Other) const;
 	void ClearCell();
-	bool isCleared{false};
+	void ReportEvent(Uint32 EventType);
+
+	int AdjacentBombs{0};
 	int Row;
 	int Col;
+	bool hasBomb{false};
+	bool isCleared{false};
 	std::unique_ptr<Engine::Image> BombImage;
+	std::unique_ptr<Engine::Text> Text;
 };
