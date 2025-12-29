@@ -7,7 +7,6 @@
 #include "SDL3/SDL_events.h"
 
 #include <SDL3/SDL.h>
-#include <iostream>
 #include <memory>
 #include <string>
 
@@ -45,6 +44,17 @@ bool MinesweeperCell::isAdjacent(const MinesweeperCell* Other) const
 		   std::abs(GetCol() - Other->GetCol()) <= 1;
 }
 
+void MinesweeperCell::Reset()
+{
+	isCleared = false;
+	hasBomb = false;
+	AdjacentBombs = 0;
+	SetIsDisabled(false);
+	SetColor(Config::BUTTON_COLOR);
+	Text->SetText(std::to_string(AdjacentBombs),
+				  Config::TEXT_COLORS[AdjacentBombs]);
+}
+
 bool MinesweeperCell::PlaceBomb()
 {
 	if (hasBomb) return false;
@@ -79,8 +89,18 @@ void MinesweeperCell::HandleEvent(const SDL_Event& E)
 		HandleCellCleared(E.user);
 	} else if (E.type == UserEvents::BOMB_PLACED) {
 		HandleBombPlaced(E.user);
+	} else if (E.type == UserEvents::GAME_WON) {
+		if (hasBomb) {
+			SetColor(Config::BUTTON_SUCCESS_COLOR);
+		}
+		SetIsDisabled(true);
+	} else if (E.type == UserEvents::GAME_LOST) {
+		if (hasBomb) {
+			isCleared = true;
+			SetColor(Config::BUTTON_FAILURE_COLOR);
+		}
+		SetIsDisabled(true);
 	}
-
 	Button::HandleEvent(E);
 }
 

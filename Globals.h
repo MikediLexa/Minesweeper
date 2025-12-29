@@ -3,6 +3,7 @@
 #include "SDL3/SDL_error.h"
 #include "SDL3/SDL_events.h"
 #include "SDL3/SDL_filesystem.h"
+#include "SDL3/SDL_pixels.h"
 
 #define SHOW_DEBUG_HELPERS
 
@@ -14,8 +15,10 @@
 namespace UserEvents
 {
 inline const Uint32 CELL_CLEARED{SDL_RegisterEvents(1)};
-// new
 inline const Uint32 BOMB_PLACED{SDL_RegisterEvents(1)};
+inline const Uint32 GAME_WON{SDL_RegisterEvents(1)};
+inline const Uint32 GAME_LOST{SDL_RegisterEvents(1)};
+inline const Uint32 NEW_GAME{SDL_RegisterEvents(1)};
 } // namespace UserEvents
 
 namespace Config
@@ -24,6 +27,7 @@ namespace Config
 // Game Settings
 inline const std::string GAME_NAME{"Minesweeper"};
 inline constexpr int BOMB_COUNT{6};
+inline constexpr int FOOTER_HEIGHT{60};
 inline constexpr int GRID_COLUMNS{8};
 inline constexpr int GRID_ROWS{4};
 static_assert(BOMB_COUNT < GRID_COLUMNS * GRID_ROWS,
@@ -38,7 +42,7 @@ inline constexpr int GRID_HEIGHT{CELL_SIZE * GRID_ROWS +
 inline constexpr int GRID_WIDTH{CELL_SIZE * GRID_COLUMNS +
 								PADDING * (GRID_COLUMNS - 1)};
 
-inline constexpr int WINDOW_HEIGHT{GRID_HEIGHT + PADDING * 2};
+inline constexpr int WINDOW_HEIGHT{GRID_HEIGHT + FOOTER_HEIGHT + PADDING * 2};
 inline constexpr int WINDOW_WIDTH{GRID_WIDTH + PADDING * 2};
 
 // Colors
@@ -46,6 +50,8 @@ inline constexpr SDL_Color BACKGROUND_COLOR{170, 170, 170, 255};
 inline constexpr SDL_Color BUTTON_COLOR{200, 200, 200, 255};
 inline constexpr SDL_Color BUTTON_HOVER_COLOR{220, 220, 220, 255};
 inline constexpr SDL_Color BUTTON_CLEARED_COLOR{240, 240, 240, 255};
+inline constexpr SDL_Color BUTTON_SUCCESS_COLOR{210, 235, 210, 255};
+inline constexpr SDL_Color BUTTON_FAILURE_COLOR{235, 210, 210, 255};
 
 // Text color based on number of surrounding bombs
 inline const std::vector<SDL_Color> TEXT_COLORS{

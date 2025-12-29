@@ -14,6 +14,8 @@ class MinesweeperCell : public Engine::Button
 	void HandleEvent(const SDL_Event& E) override;
 	void Render(SDL_Surface* Surface) override;
 
+	void Reset();
+
 	bool PlaceBomb();
 
 	[[nodiscard]]

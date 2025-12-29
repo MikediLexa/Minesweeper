@@ -1,20 +1,29 @@
 #pragma once
 #include "Globals.h"
 #include "Minesweeper/Grid.h"
+#include "Minesweeper/NewGameButton.h"
 
 #include <SDL3/SDL.h>
 
-class MinesweeperUI {
+class MinesweeperUI
+{
   public:
-    void Render(SDL_Surface* Surface) {
-        Grid.Render(Surface);
-    }
+	void Render(SDL_Surface* Surface)
+	{
+		Grid.Render(Surface);
+		Button.Render(Surface);
+	}
 
-    void HandleEvent(const SDL_Event& E) {
-        Grid.HandleEvent(E);
-    };
+	void HandleEvent(const SDL_Event& E)
+	{
+		Grid.HandleEvent(E);
+		Button.HandleEvent(E);
+	};
 
   private:
-    MinesweeperGrid Grid{Config::PADDING,
-                         Config::PADDING};
+	MinesweeperGrid Grid{Config::PADDING, Config::PADDING};
+	NewGameButton Button{Config::PADDING,
+						 Config::GRID_HEIGHT + Config::PADDING * 2,
+						 Config::WINDOW_WIDTH - Config::PADDING * 2,
+						 Config::FOOTER_HEIGHT - Config::PADDING};
 };
