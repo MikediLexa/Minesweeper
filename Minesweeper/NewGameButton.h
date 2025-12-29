@@ -9,8 +9,7 @@ class NewGameButton : public Engine::Button
 {
   public:
 	NewGameButton(int x, int y, int w, int h)
-		: Button{x, y, w, h},
-		  Text{x, y, w, h, "NEW GAME", {255, 255, 255, 255}, 20.0f}
+		: Button{x, y, w, h}, Text{x, y, w, h, "NEW GAME", {}, 20.0f}
 	{
 	}
 

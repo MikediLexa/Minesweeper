@@ -1,14 +1,8 @@
 #pragma once
 
-#include "SDL3/SDL_error.h"
-#include "SDL3/SDL_events.h"
-#include "SDL3/SDL_filesystem.h"
-#include "SDL3/SDL_pixels.h"
-
-#define SHOW_DEBUG_HELPERS
+// #define SHOW_DEBUG_HELPERS
 
 #include <SDL3/SDL.h>
-#include <iostream>
 #include <string>
 #include <vector>
 
