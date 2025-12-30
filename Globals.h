@@ -1,6 +1,6 @@
 #pragma once
 
-#define SHOW_DEBUG_HELPERS
+// #define SHOW_DEBUG_HELPERS
 
 #include "SDL3/SDL_events.h"
 
