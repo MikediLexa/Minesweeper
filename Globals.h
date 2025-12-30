@@ -1,8 +1,11 @@
 #pragma once
 
-// #define SHOW_DEBUG_HELPERS
+#define SHOW_DEBUG_HELPERS
+
+#include "SDL3/SDL_events.h"
 
 #include <SDL3/SDL.h>
+#include <iostream>
 #include <string>
 #include <vector>
 
@@ -13,6 +16,8 @@ inline const Uint32 BOMB_PLACED{SDL_RegisterEvents(1)};
 inline const Uint32 GAME_WON{SDL_RegisterEvents(1)};
 inline const Uint32 GAME_LOST{SDL_RegisterEvents(1)};
 inline const Uint32 NEW_GAME{SDL_RegisterEvents(1)};
+inline const Uint32 FLAG_PLACED{SDL_RegisterEvents(1)};
+inline const Uint32 FLAG_CLEARED{SDL_RegisterEvents(1)};
 } // namespace UserEvents
 
 namespace Config
@@ -21,6 +26,7 @@ namespace Config
 // Game Settings
 inline const std::string GAME_NAME{"Minesweeper"};
 inline constexpr int BOMB_COUNT{6};
+inline constexpr int FLAG_COUNTER_WIDTH{100};
 inline constexpr int FOOTER_HEIGHT{60};
 inline constexpr int GRID_COLUMNS{8};
 inline constexpr int GRID_ROWS{4};
@@ -46,6 +52,7 @@ inline constexpr SDL_Color BUTTON_HOVER_COLOR{220, 220, 220, 255};
 inline constexpr SDL_Color BUTTON_CLEARED_COLOR{240, 240, 240, 255};
 inline constexpr SDL_Color BUTTON_SUCCESS_COLOR{210, 235, 210, 255};
 inline constexpr SDL_Color BUTTON_FAILURE_COLOR{235, 210, 210, 255};
+inline constexpr SDL_Color FLAG_COUNTER_COLOR{80, 80, 80, 255};
 
 // Text color based on number of surrounding bombs
 inline const std::vector<SDL_Color> TEXT_COLORS{

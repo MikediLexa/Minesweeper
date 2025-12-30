@@ -38,6 +38,7 @@ class MinesweeperCell : public Engine::Button
 
   protected:
 	void HandleLeftClick() override;
+	void HandleRightClick() override;
 
   private:
 	void HandleCellCleared(const SDL_UserEvent& E);
@@ -51,6 +52,8 @@ class MinesweeperCell : public Engine::Button
 	int Col;
 	bool hasBomb{false};
 	bool isCleared{false};
+	bool hasFlag{false};
+	std::unique_ptr<Engine::Image> FlagImage;
 	std::unique_ptr<Engine::Image> BombImage;
 	std::unique_ptr<Engine::Text> Text;
 };
